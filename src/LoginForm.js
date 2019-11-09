@@ -11,18 +11,19 @@ class LoginForm extends React.Component {
     this.state = {
     };
 
-    let auth = cookie.parse(document.cookie)['Authorization'];
+    /*let auth = cookie.parse(document.cookie)['Authorization'];
     if (auth) {
       this.login(auth);
-    }
+    }*/
   }
 
-  login = auth => {
-    fetch('/exhibit/login', {
+  login = (username, password) => {
+    let formData = new FormData();
+    formData.append('username', username);
+    formData.append('password', password);
+    fetch('/login', {
       method: 'POST',
-      headers: {
-        Authorization: auth
-      }
+      body: formData
     }).then(resp => {
       if (resp.ok) {
         return resp.json();
@@ -35,7 +36,7 @@ class LoginForm extends React.Component {
   }
 
   onSubmit = () => {
-    this.login(btoa(this.state.username + ':' + this.state.password));
+    this.login(this.state.username, this.state.password);
   };
 
   onChange = (e, { name, value }) => {
