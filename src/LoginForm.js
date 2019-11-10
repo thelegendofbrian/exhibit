@@ -11,10 +11,7 @@ class LoginForm extends React.Component {
     this.state = {
     };
 
-    /*let auth = cookie.parse(document.cookie)['Authorization'];
-    if (auth) {
-      this.login(auth);
-    }*/
+    this.login();
   }
 
   login = (username, password) => {
@@ -23,15 +20,18 @@ class LoginForm extends React.Component {
     formData.append('password', password);
     fetch('/login', {
       method: 'POST',
+      credentials: 'include',
       body: formData
     }).then(resp => {
       if (resp.ok) {
         return resp.json();
-      } else {
+      } else if(username && password) {
         alert('bad');
       }
     }).then(resp => {
-      this.props.onLogin(resp.user);
+      if (resp) {
+        this.props.onLogin(resp.user);
+      }
     });
   }
 
