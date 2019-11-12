@@ -1,7 +1,7 @@
 import React from 'react';
-import { Grid, Segment, Form, Button } from 'semantic-ui-react';
+import { Grid, Segment, Form, Button, Header } from 'semantic-ui-react';
 import fetch from './fetchWrapper';
-import cookie from 'cookie';
+import './LoginForm.css'
 
 class LoginForm extends React.Component {
 
@@ -47,18 +47,37 @@ class LoginForm extends React.Component {
 
   render() {
     return (
-      <Form onSubmit={this.onSubmit}>
-        <Form.Input
-          name='username'
-          onChange={this.onChange}
-        />
-        <Form.Input
-          type='password'
-          name='password'
-          onChange={this.onChange}
-        />
-        <Button content='button' />
-      </Form>
+      <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
+        <Grid.Column style={{ maxWidth: 450 }}>
+          <Segment padded>
+            <Header as='h2' color='blue' textAlign='center'>
+              Log-in to your account
+            </Header>
+            <Form size='large' onSubmit={this.onSubmit}>
+              <Segment stacked>
+                <Form.Input
+                  fluid
+                  name='username'
+                  onChange={this.onChange}
+                  icon='user'
+                  iconPosition='left'
+                  placeholder='Username'
+                />
+                <Form.Input
+                  name='password'
+                  onChange={this.onChange}
+                  fluid
+                  icon='lock'
+                  iconPosition='left'
+                  placeholder='Password'
+                  type='password'
+                />
+                <Button content='Login' color='blue' fluid size='large' />
+              </Segment>
+            </Form>
+          </Segment>
+        </Grid.Column>
+      </Grid>
     );
   }
 }

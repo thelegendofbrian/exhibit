@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import 'semantic-ui-css/semantic.min.css';
 import LoginForm from './LoginForm';
-import { Image } from 'semantic-ui-react';
+import UserHome from './UserHome';
 
 class App extends React.Component {
 
@@ -15,11 +15,9 @@ class App extends React.Component {
 
   render() {
     if (!this.state.user.name) {
-      return <LoginForm onLogin={user => this.setState({ user })} />;
+      return <LoginForm onLogin={user => this.setState({ user })} />
     }
-    return (
-      <div></div>
-    );
+    return <UserHome />
   }
 }
 
