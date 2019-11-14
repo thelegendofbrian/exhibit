@@ -1,0 +1,4 @@
+export default {
+  devClient: 3000,
+  devServer: 80
+};
