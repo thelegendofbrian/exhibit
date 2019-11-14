@@ -9,6 +9,7 @@ class LoginForm extends React.Component {
     super(props);
 
     this.state = {
+      triedQuickAuth: false
     };
 
     this.login();
@@ -20,13 +21,16 @@ class LoginForm extends React.Component {
     formData.append('password', password);
     fetch('/login', {
       method: 'POST',
-      credentials: 'include',
       body: formData
     }).then(resp => {
       if (resp.ok) {
         return resp.json();
       } else if(username && password) {
         alert('bad');
+      } else {
+        this.setState({
+          triedQuickAuth: true
+        });
       }
     }).then(resp => {
       if (resp) {
@@ -46,6 +50,9 @@ class LoginForm extends React.Component {
   };
 
   render() {
+    if (!this.state.triedQuickAuth) {
+      return <div/>;
+    }
     return (
       <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
         <Grid.Column style={{ maxWidth: 450 }}>
