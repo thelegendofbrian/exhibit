@@ -8,8 +8,29 @@ import PersonalSchedule from './PersonalSchedule'
 import PersonalAverage from './PersonalAverage'
 import PersonalPoints from './PersonalPoints'
 import { Grid, Container, Header, Icon, GridColumn, Segment, GridRow, Button } from 'semantic-ui-react';
+import fetch from './fetchWrapper'
 
 class UserHome extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      isCheckedIn: false
+    };
+  }
+
+  checkIn = () => {
+    fetch(`/checkin?timeZoneOffset=${new Date().getTimezoneOffset()}`, {
+      method: 'POST'
+    }).then(resp => {
+      if (resp.ok) {
+        this.setState({ isCheckedIn: true });
+      } else {
+        alert('bad');
+      }
+    });
+  }
+
   render() {
     return (
       <div className='App'>
@@ -38,7 +59,9 @@ class UserHome extends React.Component {
                 <GridRow>
                   <GridColumn>
                     <Segment>
-                      <Button content='Check-in!' fluid />
+                      { !this.state.isCheckedIn &&
+                        <Button content='Check-in!' onClick={this.checkIn} fluid />
+                      }
                     </Segment>
                     <Header as='h3' block attached='top'>
                       Schedule
