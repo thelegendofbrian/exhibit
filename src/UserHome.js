@@ -20,7 +20,7 @@ class UserHome extends React.Component {
   }
 
   checkIn = () => {
-    fetch(`/checkin?timeZoneOffset=${new Date().getTimezoneOffset()}`, {
+    fetch(`/checkin/Japanese?timeZoneOffset=${new Date().getTimezoneOffset()}`, {
       method: 'POST'
     }).then(resp => {
       if (resp.ok) {
