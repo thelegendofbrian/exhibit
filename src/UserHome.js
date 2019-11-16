@@ -15,12 +15,33 @@ class UserHome extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isCheckedIn: false
+      isCheckedIn: false,
+      group: 'Japanese'
     };
   }
 
+  componentDidMount() {
+    // Check if checked in already
+    fetch(`/checkin/${this.state.group}?pastDays=1`, {
+      method: 'GET'
+    }).then(resp => {
+      if (resp.ok) {
+        return resp.json();
+      } else {
+        alert('bad');
+      }
+    }).then(resp => {
+      // debugger;
+      resp.forEach(element => {
+        if (element.userName === this.props.userName) {
+          this.setState({ isCheckedIn: true });
+        }
+      });
+    });
+  }
+
   checkIn = () => {
-    fetch(`/checkin/Japanese?timeZoneOffset=${new Date().getTimezoneOffset()}`, {
+    fetch(`/checkin/${this.state.group}?timeZoneOffset=${new Date().getTimezoneOffset()}`, {
       method: 'POST'
     }).then(resp => {
       if (resp.ok) {
@@ -31,9 +52,19 @@ class UserHome extends React.Component {
     });
   }
 
+
+
   render() {
+    const buttonNotCheckedIn = <Button content='Check-in!' onClick={this.checkIn} fluid />
+    const buttonCheckedIn = (
+      <Segment secondary>
+        <Icon name='checkmark' color='green' size='large' />
+        Already checked in
+      </Segment>
+    )
+    
     return (
-      <div className='App'>
+      <>
         <MainMenu />
         <Container className='userHomeContent'>
           <Grid columns='equal'>
@@ -59,9 +90,7 @@ class UserHome extends React.Component {
                 <GridRow>
                   <GridColumn>
                     <Segment>
-                      { !this.state.isCheckedIn &&
-                        <Button content='Check-in!' onClick={this.checkIn} fluid />
-                      }
+                      { this.state.isCheckedIn ? buttonCheckedIn : buttonNotCheckedIn }
                     </Segment>
                     <Header as='h3' block attached='top'>
                       Schedule
@@ -83,7 +112,7 @@ class UserHome extends React.Component {
             </GridColumn>
           </Grid>
         </Container>
-      </div>
+      </>
     )
   }
 }

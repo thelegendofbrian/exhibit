@@ -7,27 +7,29 @@ class PersonalHeatmap extends React.Component {
     return (
       <Table textAlign='center' celled collapsing padded>
         <Table.Header>
-          <Table.HeaderCell>
-            1
-          </Table.HeaderCell>
-          <Table.HeaderCell>
-            2
-          </Table.HeaderCell>
-          <Table.HeaderCell>
-            3
-          </Table.HeaderCell>
-          <Table.HeaderCell>
-            4
-          </Table.HeaderCell>
-          <Table.HeaderCell>
-            5
-          </Table.HeaderCell>
-          <Table.HeaderCell>
-            6
-          </Table.HeaderCell>
-          <Table.HeaderCell>
-            7
-          </Table.HeaderCell>
+          <Table.Row>
+            <Table.HeaderCell>
+              1
+            </Table.HeaderCell>
+            <Table.HeaderCell>
+              2
+            </Table.HeaderCell>
+            <Table.HeaderCell>
+              3
+            </Table.HeaderCell>
+            <Table.HeaderCell>
+              4
+            </Table.HeaderCell>
+            <Table.HeaderCell>
+              5
+            </Table.HeaderCell>
+            <Table.HeaderCell>
+              6
+            </Table.HeaderCell>
+            <Table.HeaderCell>
+              7
+            </Table.HeaderCell>
+          </Table.Row>
         </Table.Header>
 
         <Table.Body>
