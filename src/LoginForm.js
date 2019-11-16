@@ -21,6 +21,9 @@ class LoginForm extends React.Component {
     formData.append('password', password);
     fetch('/login', {
       method: 'POST',
+      headers: {
+        timezone: Intl.DateTimeFormat().resolvedOptions().timeZone
+      },
       body: formData
     }).then(resp => {
       if (resp.ok) {

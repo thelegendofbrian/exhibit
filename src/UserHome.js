@@ -22,7 +22,7 @@ class UserHome extends React.Component {
 
   componentDidMount() {
     // Check if checked in already
-    fetch(`/checkin/${this.state.group}?pastDays=1`, {
+    fetch(`/checkin/${this.state.group}/@me?pastDays=1`, {
       method: 'GET'
     }).then(resp => {
       if (resp.ok) {
@@ -31,17 +31,14 @@ class UserHome extends React.Component {
         alert('bad');
       }
     }).then(resp => {
-      // debugger;
-      resp.forEach(element => {
-        if (element.userName === this.props.userName) {
-          this.setState({ isCheckedIn: true });
-        }
-      });
+      if (resp && resp.userName === this.props.userName) {
+        this.setState({ isCheckedIn: true });
+      }
     });
   }
 
   checkIn = () => {
-    fetch(`/checkin/${this.state.group}?timeZoneOffset=${new Date().getTimezoneOffset()}`, {
+    fetch(`/checkin/${this.state.group}`, {
       method: 'POST'
     }).then(resp => {
       if (resp.ok) {
