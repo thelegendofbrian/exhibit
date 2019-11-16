@@ -6,7 +6,7 @@ class PersonalPoints extends React.Component {
   render() {
     return (
       <Statistic size='tiny'>
-        <Statistic.Value>1337</Statistic.Value>
+        <Statistic.Value>{this.props.value}</Statistic.Value>
         <Statistic.Label>Total Points</Statistic.Label>
       </Statistic>
     )

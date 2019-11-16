@@ -3,8 +3,10 @@ import './App.css';
 import 'semantic-ui-css/semantic.min.css';
 import LoginForm from './LoginForm';
 import UserHome from './UserHome';
+import GroupHome from './GroupHome';
+import Settings from './Settings';
 
-const defaultPage = 'userHome'
+const defaultPage = 'userStats'
 
 class App extends React.Component {
 
@@ -16,17 +18,21 @@ class App extends React.Component {
     };
   }
 
+  handlePageChange = (page) => {
+    this.setState({page});
+  }
+
   getPage = () => {
     switch (this.state.page) {
-      case 'userHome':
-        return <UserHome userName={this.state.user.name} />
-      // case 'groupStats':
-      //   return <GroupHome />
-      // case 'settings':
-      //   return <Settings />
+      case 'userStats':
+        return <UserHome userName={this.state.user.name} onPageChange={this.handlePageChange} />
+      case 'groupStats':
+        return <GroupHome userName={this.state.user.name} onPageChange={this.handlePageChange} />
+      case 'settings':
+        return <Settings userName={this.state.user.name} onPageChange={this.handlePageChange} />
       case 'login':
       default:
-        return <LoginForm onLogin={user => this.setState({ user, page: defaultPage })} />
+        return <LoginForm onLogin={user => this.setState({ user, page: defaultPage })} onPageChange={this.handlePageChange} />
     }
   }
 

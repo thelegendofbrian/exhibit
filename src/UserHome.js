@@ -16,13 +16,25 @@ class UserHome extends React.Component {
     super(props);
     this.state = {
       isCheckedIn: false,
-      group: 'Japanese'
+      group: {id: '1', name: 'Japanese'},
+      stats: {
+        dayStreak: '7',
+        adherencePercent: '89',
+        points: '1337',
+        bonusCheckIns: '',
+        totalCheckIns: ''
+      },
+      groups: [
+        {id: '1', name: 'Japanese'},
+        {id: '2', name: 'Exercise'},
+        {id: '3', name: 'Yeeting'}
+      ]
     };
   }
 
   componentDidMount() {
     // Check if checked in already
-    fetch(`/checkin/${this.state.group}/@me?pastDays=1`, {
+    fetch(`/checkin/${this.state.group.name}/@me?pastDays=1`, {
       method: 'GET'
     }).then(resp => {
       if (resp.ok) {
@@ -38,7 +50,7 @@ class UserHome extends React.Component {
   }
 
   checkIn = () => {
-    fetch(`/checkin/${this.state.group}`, {
+    fetch(`/checkin/${this.state.group.name}`, {
       method: 'POST'
     }).then(resp => {
       if (resp.ok) {
@@ -48,8 +60,6 @@ class UserHome extends React.Component {
       }
     });
   }
-
-
 
   render() {
     const buttonNotCheckedIn = <Button content='Check-in!' onClick={this.checkIn} fluid />
@@ -62,11 +72,14 @@ class UserHome extends React.Component {
     
     return (
       <>
-        <MainMenu />
+        <MainMenu onPageChange={this.props.onPageChange} />
         <Container className='userHomeContent'>
           <Grid columns='equal'>
             <GridColumn width='3'>
-              <LeftMenuFloat />
+              <LeftMenuFloat
+                currentGroup={this.state.group}
+                groups={this.state.groups}
+              />
             </GridColumn>
             <GridColumn>
               <Header as='h2' icon textAlign='center'>
@@ -78,9 +91,9 @@ class UserHome extends React.Component {
               </Header>
               <Segment attached='bottom'>
                 <Grid columns='equal' textAlign='center'>
-                  <GridColumn><PersonalStreak /></GridColumn>
-                  <GridColumn><PersonalAverage /></GridColumn>
-                  <GridColumn><PersonalPoints /></GridColumn>
+                  <GridColumn><PersonalStreak value={this.state.stats.dayStreak} /></GridColumn>
+                  <GridColumn><PersonalAverage value={this.state.stats.adherencePercent} /></GridColumn>
+                  <GridColumn><PersonalPoints value={this.state.stats.points} /></GridColumn>
                 </Grid>
               </Segment>
               <Grid columns='equal'>

@@ -6,7 +6,7 @@ class PersonalStreak extends React.Component {
   render() {
     return (
       <Statistic size='tiny'>
-        <Statistic.Value>7 day</Statistic.Value>
+        <Statistic.Value>{this.props.value} day</Statistic.Value>
         <Statistic.Label>Streak</Statistic.Label>
       </Statistic>
     )
