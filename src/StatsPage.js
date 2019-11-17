@@ -39,6 +39,7 @@ class StatsPage extends React.Component {
       <>
         <MainMenu
           onPageChange={this.props.onPageChange}
+          onUserChange={this.props.onUserChange}
           activePage={this.props.activePage}
         />
         <Container className='statsPageContainer'>

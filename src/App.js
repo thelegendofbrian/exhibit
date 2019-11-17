@@ -20,6 +20,10 @@ class App extends React.Component {
     };
   }
 
+  handleUserChange = (user) => {
+    this.setState({user});
+  }
+
   handlePageChange = (page) => {
     this.setState({page});
   }
@@ -27,14 +31,44 @@ class App extends React.Component {
   getPage = () => {
     switch (this.state.page) {
       case 'userStats':
-        return <StatsPage scope='user' userName={this.state.user.name} onPageChange={this.handlePageChange} activePage={this.state.page} settings={this.state.settings} />
+        return (
+          <StatsPage
+            scope='user'
+            userName={this.state.user.name}
+            onPageChange={this.handlePageChange}
+            onUserChange={this.handleUserChange}
+            activePage={this.state.page}
+            settings={this.state.settings}
+          />
+        )
       case 'groupStats':
-        return <StatsPage scope='group' userName={this.state.user.name} onPageChange={this.handlePageChange} activePage={this.state.page} />
+        return (
+          <StatsPage
+            scope='group'
+            userName={this.state.user.name}
+            onPageChange={this.handlePageChange}
+            onUserChange={this.handleUserChange}
+            activePage={this.state.page}
+          />
+        )
       case 'settings':
-        return <SettingsPage userName={this.state.user.name} onPageChange={this.handlePageChange} activePage={this.state.page} settings={this.state.settings} />
+        return (
+          <SettingsPage
+            userName={this.state.user.name}
+            onPageChange={this.handlePageChange}
+            onUserChange={this.handleUserChange}
+            activePage={this.state.page}
+            settings={this.state.settings}
+          />
+        )
       case 'login':
       default:
-        return <LoginPage onLogin={user => this.setState({ user, page: defaultPage })} onPageChange={this.handlePageChange} />
+        return (
+          <LoginPage
+            onLogin={user => this.setState({ user, page: defaultPage })}
+            onPageChange={this.handlePageChange}
+          />
+        )
     }
   }
 

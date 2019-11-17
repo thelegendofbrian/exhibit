@@ -5,7 +5,11 @@ class SettingsPage extends React.Component {
   render() {
     return (
       <>
-        <MainMenu onPageChange={this.props.onPageChange} activePage={this.props.activePage} />
+        <MainMenu
+          onPageChange={this.props.onPageChange}
+          onUserChange={this.props.onUserChange}
+          activePage={this.props.activePage}
+        />
         <div>Settings</div>
       </>
     )

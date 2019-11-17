@@ -1,14 +1,22 @@
 import React from 'react';
 import { Menu, Icon, Modal, Placeholder, Reveal } from 'semantic-ui-react';
 import './MainMenu.css';
+import fetch from './fetchWrapper'
 
 class MainMenu extends React.Component {
-  handleChange = (e, data) => {
+  handlePageChange = (e, data) => {
     this.props.onPageChange(data.name);
   }
 
+  changeUserToNull = () => {
+    this.props.onUserChange({});
+  }
+
   logout() {
-    alert('Logged out')
+    fetch('/logout', {method: 'GET'}).then(response => {
+      this.props.onPageChange('login')
+      this.changeUserToNull()
+    });
   }
 
   render() {
@@ -73,7 +81,7 @@ class MainMenu extends React.Component {
 
         <Menu.Item
           name='userStats'
-          onClick={this.handleChange}
+          onClick={this.handlePageChange}
           active={this.props.activePage === 'userStats'}
         >
         <Icon name='user' size='large' />
@@ -82,7 +90,7 @@ class MainMenu extends React.Component {
 
         <Menu.Item
           name='groupStats'
-          onClick={this.handleChange}
+          onClick={this.handlePageChange}
           active={this.props.activePage === 'groupStats'}
         >
           <Icon name='users' size='large' />
@@ -92,7 +100,7 @@ class MainMenu extends React.Component {
         <Menu.Menu position='right' className='menuPadMiddle'>
           <Menu.Item
             name='settings'
-            onClick={this.handleChange}
+            onClick={this.handlePageChange}
             active={this.props.activePage === 'settings'}
           >
             <Icon name='settings' size='big' fitted />
