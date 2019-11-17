@@ -23,7 +23,7 @@ class CheckInButton extends React.Component {
         alert('bad');
       }
     }).then(resp => {
-      if (resp && resp.userName === this.props.userName) {
+      if (resp) {
         this.setState({ isCheckedIn: true });
       }
     });
