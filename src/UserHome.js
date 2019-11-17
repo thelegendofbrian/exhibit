@@ -38,7 +38,9 @@ class UserHome extends React.Component {
       method: 'GET'
     }).then(resp => {
       if (resp.ok) {
-        return resp.json();
+        if (resp.status === 200) {
+          return resp.json();
+        }
       } else {
         alert('bad');
       }
