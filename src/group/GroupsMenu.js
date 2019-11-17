@@ -1,14 +1,13 @@
 import React from 'react';
 import { Menu } from 'semantic-ui-react';
-// import './LeftMenuFloat.css';
 
-class LeftMenuFloat extends React.Component {
+class GroupsMenu extends React.Component {
   render() {
     const listMenuItems = this.props.groups.map((groups) =>
       <Menu.Item
         key={groups.id}
         name={groups.name}
-        active={groups.name === this.props.currentGroup.name}
+        active={groups.name === this.props.activeGroup.name}
         onClick={() => alert(groups.name)}
       />
     )
@@ -26,4 +25,4 @@ class LeftMenuFloat extends React.Component {
   }
 }
 
-export default LeftMenuFloat;
+export default GroupsMenu;

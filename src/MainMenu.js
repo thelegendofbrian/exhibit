@@ -1,11 +1,10 @@
 import React from 'react';
 import { Menu, Icon, Modal, Placeholder, Reveal } from 'semantic-ui-react';
-// import './MainMenu.css';
+import './MainMenu.css';
 
 class MainMenu extends React.Component {
   handleChange = (e, data) => {
     this.props.onPageChange(data.name);
-    debugger;
   }
 
   logout() {
@@ -75,7 +74,7 @@ class MainMenu extends React.Component {
         <Menu.Item
           name='userStats'
           onClick={this.handleChange}
-          //active={}
+          active={this.props.activePage === 'userStats'}
         >
         <Icon name='user' size='large' />
           Personal Stats
@@ -84,7 +83,7 @@ class MainMenu extends React.Component {
         <Menu.Item
           name='groupStats'
           onClick={this.handleChange}
-          //active={}
+          active={this.props.activePage === 'groupStats'}
         >
           <Icon name='users' size='large' />
           Group Stats
@@ -94,7 +93,7 @@ class MainMenu extends React.Component {
           <Menu.Item
             name='settings'
             onClick={this.handleChange}
-            //active={}
+            active={this.props.activePage === 'settings'}
           >
             <Icon name='settings' size='big' fitted />
           </Menu.Item>

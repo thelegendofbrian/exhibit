@@ -1,11 +1,3 @@
-.userHome {
-  background: #fff;
-}
-
-.userHomeContent > .ui.grid {
-  margin-left: -242px;
-}
-
 .menuPadLeft {
   width: calc((100% - 1061px) / 2);
 }

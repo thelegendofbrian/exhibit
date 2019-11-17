@@ -1,9 +1,9 @@
 import React from 'react';
 import { Grid, Segment, Form, Button, Header } from 'semantic-ui-react';
 import fetch from './fetchWrapper';
-import './LoginForm.css'
+import './LoginPage.css'
 
-class LoginForm extends React.Component {
+class LoginPage extends React.Component {
 
   constructor(props) {
     super(props);
@@ -92,4 +92,4 @@ class LoginForm extends React.Component {
   }
 }
 
-export default LoginForm;
+export default LoginPage;

@@ -1,20 +1,22 @@
 import React from 'react';
-import './App.css';
 import 'semantic-ui-css/semantic.min.css';
-import LoginForm from './LoginForm';
-import UserHome from './UserHome';
-import GroupHome from './GroupHome';
-import Settings from './Settings';
+import LoginPage from './LoginPage';
+import StatsPage from './StatsPage';
+import SettingsPage from './SettingsPage';
 
 const defaultPage = 'userStats'
 
 class App extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
       user: {},
-      page: 'login'
+      page: 'login',
+      settings: {
+        userStatsToDisplay: [
+          'dayStreak', 'adherencePercent', 'points'
+        ]
+      }
     };
   }
 
@@ -25,14 +27,14 @@ class App extends React.Component {
   getPage = () => {
     switch (this.state.page) {
       case 'userStats':
-        return <UserHome userName={this.state.user.name} onPageChange={this.handlePageChange} />
+        return <StatsPage scope='user' userName={this.state.user.name} onPageChange={this.handlePageChange} activePage={this.state.page} settings={this.state.settings} />
       case 'groupStats':
-        return <GroupHome userName={this.state.user.name} onPageChange={this.handlePageChange} />
+        return <StatsPage scope='group' userName={this.state.user.name} onPageChange={this.handlePageChange} activePage={this.state.page} />
       case 'settings':
-        return <Settings userName={this.state.user.name} onPageChange={this.handlePageChange} />
+        return <SettingsPage userName={this.state.user.name} onPageChange={this.handlePageChange} activePage={this.state.page} settings={this.state.settings} />
       case 'login':
       default:
-        return <LoginForm onLogin={user => this.setState({ user, page: defaultPage })} onPageChange={this.handlePageChange} />
+        return <LoginPage onLogin={user => this.setState({ user, page: defaultPage })} onPageChange={this.handlePageChange} />
     }
   }
 
