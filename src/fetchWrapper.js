@@ -9,7 +9,7 @@ function fetchWrapper() {
     arguments[0] = `http://localhost:${portCfg.devServer}${arguments[0]}`;
   }
   if (!arguments[1]) {
-    arguments[1] = {}
+    arguments[1] = {};
   }
   arguments[1].credentials = 'include';
   return fetch.apply(this, arguments);

@@ -13,7 +13,7 @@ class MainMenu extends React.Component {
   }
 
   logout() {
-    fetch('/logout', {method: 'GET'}).then(response => {
+    fetch('/logout', { method: 'POST' }).then(response => {
       this.props.onPageChange('login')
       this.changeUserToNull()
     });
