@@ -11,8 +11,12 @@ class CheckInButton extends React.Component {
   }
 
   componentDidMount() {
-    // Check if checked in already
-    fetch(`/checkin/${this.props.activeGroup.id}/@me?pastDays=1`, {
+    this.updateCheckInStatus()
+  }
+
+  // Check if checked in already
+  updateCheckInStatus = () => {
+    fetch(`/checkin/${this.props.activeGroupId}/@me?pastDays=1`, {
       method: 'GET'
     }).then(resp => {
       if (resp.ok) {
@@ -30,7 +34,7 @@ class CheckInButton extends React.Component {
   }
 
   checkIn = () => {
-    fetch(`/checkin/${this.props.activeGroup.id}`, {
+    fetch(`/checkin/${this.props.activeGroupId}`, {
       method: 'POST'
     }).then(resp => {
       if (resp.ok) {

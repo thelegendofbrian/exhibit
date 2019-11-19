@@ -28,7 +28,7 @@ class UserContent extends React.Component {
         <Grid columns='equal'>
           <Grid.Row>
             <Grid.Column>
-              <CheckInButton activeGroup={this.props.activeGroup} />
+              <CheckInButton activeGroupId={this.props.activeGroupId} />
               <UserSchedule />
             </Grid.Column>
             <Grid.Column>

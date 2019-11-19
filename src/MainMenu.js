@@ -85,7 +85,7 @@ class MainMenu extends React.Component {
           active={this.props.activePage === 'userStats'}
         >
         <Icon name='user' size='large' />
-          Personal Stats
+          User Stats
         </Menu.Item>
 
         <Menu.Item

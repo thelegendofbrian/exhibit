@@ -3,12 +3,12 @@ import { Menu } from 'semantic-ui-react';
 
 class GroupsMenu extends React.Component {
   render() {
-    const listMenuItems = this.props.groups.map((groups) =>
+    let listMenuItems = this.props.groups.map((groups) =>
       <Menu.Item
         key={groups.id}
         name={groups.name}
-        active={groups.name === this.props.activeGroup.name}
-        onClick={() => alert(groups.name)}
+        active={groups.id === this.props.activeGroupId}
+        onClick={() => this.props.onActiveGroupIdChange(groups.id)}
       />
     )
 

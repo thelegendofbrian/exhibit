@@ -2,7 +2,7 @@ import React from 'react';
 import 'semantic-ui-css/semantic.min.css';
 import LoginPage from './LoginPage';
 import StatsPage from './StatsPage';
-import SettingsPage from './SettingsPage';
+import SettingsPage from './settings/SettingsPage';
 
 const defaultPage = 'userStats'
 

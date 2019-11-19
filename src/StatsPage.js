@@ -1,6 +1,6 @@
 import React from 'react';
 import MainMenu from './MainMenu';
-import GroupsMenu from './group/GroupsMenu';
+import GroupsMenu from './GroupsMenu';
 import GroupContent from './group/GroupContent';
 import UserContent from './user/UserContent';
 import { Container, Grid, Header, Icon } from 'semantic-ui-react';
@@ -10,13 +10,24 @@ class StatsPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      activeGroup: {id: '1', name: 'Japanese'},
+      activeGroupId: 1,
       groups: [
-        {id: '1', name: 'Japanese'},
-        {id: '2', name: 'Exercise'},
-        {id: '3', name: 'Yeeting'}
+        {id: 1, name: 'Japanese'},
+        {id: 2, name: 'Exercise'},
+        {id: 3, name: 'Yeeting'}
       ]
     };
+  }
+
+  handleActiveGroupIdChange = activeGroupId => {
+    this.setState({activeGroupId});
+  }
+
+  getGroupName = id => {
+    let arrayIndex = this.state.groups.findIndex(group =>
+      group.id === id
+    )
+    return this.state.groups[arrayIndex]
   }
 
   render() {
@@ -32,7 +43,13 @@ class StatsPage extends React.Component {
     if (this.props.scope === 'group') {
       content = <GroupContent />
     } else {
-      content = <UserContent activeGroup={this.state.activeGroup} settings={this.props.settings} />
+      content = (
+        <UserContent
+          activeGroupId={this.state.activeGroupId}
+          groups={this.state.groups}
+          settings={this.props.settings}
+        />
+      )
     }
 
     return (
@@ -47,8 +64,10 @@ class StatsPage extends React.Component {
             <Grid.Column width='3'>
               <GroupsMenu
                 onPageChange={this.props.onPageChange}
+                onActiveGroupIdChange={this.handleActiveGroupIdChange}
                 groups={this.state.groups}
-                activeGroup={this.state.activeGroup}
+                getGroupName={this.getGroupName}
+                activeGroupId={this.state.activeGroupId}
               />
             </Grid.Column>
             <Grid.Column>

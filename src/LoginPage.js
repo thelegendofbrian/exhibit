@@ -1,17 +1,15 @@
 import React from 'react';
-import { Grid, Segment, Form, Button, Header } from 'semantic-ui-react';
+import { Grid, Segment, Form, Button, Header, Message, Icon, Image } from 'semantic-ui-react';
 import fetch from './fetchWrapper';
 import './LoginPage.css'
 
 class LoginPage extends React.Component {
-
   constructor(props) {
     super(props);
-
     this.state = {
-      triedQuickAuth: false
+      triedQuickAuth: false,
+      isLoginWrong: false
     };
-
     this.login();
   }
 
@@ -29,7 +27,7 @@ class LoginPage extends React.Component {
       if (resp.ok) {
         return resp.json();
       } else if(username && password) {
-        alert('bad');
+        this.setState({isLoginWrong: true})
       } else {
         this.setState({
           triedQuickAuth: true
@@ -56,12 +54,19 @@ class LoginPage extends React.Component {
     if (!this.state.triedQuickAuth) {
       return '';
     }
+
+    const loginFailureNotice = (
+      <Message negative>
+        <Message.Header><Icon name='warning circle' />Invalid login.</Message.Header>
+      </Message>
+    )
+    
     return (
       <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle' padded='vertically'>
         <Grid.Column style={{ maxWidth: 450 }}>
           <Segment padded>
             <Header as='h2' color='blue' textAlign='center'>
-              Log-in to your account
+              <Image alt='Logo' src='/logo_blue.svg' size='huge' />Log-in to your account
             </Header>
             <Form size='large' onSubmit={this.onSubmit}>
               <Segment stacked>
@@ -85,6 +90,7 @@ class LoginPage extends React.Component {
                 <Button content='Login' color='blue' fluid size='large' />
               </Segment>
             </Form>
+            {this.state.isLoginWrong ? loginFailureNotice : '' }
           </Segment>
         </Grid.Column>
       </Grid>
