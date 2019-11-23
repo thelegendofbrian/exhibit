@@ -11,11 +11,11 @@ class StatsPage extends React.Component {
     super(props);
     this.state = {
       activeGroupId: 1,
-      groups: [
-        {id: 1, name: 'Japanese'},
-        {id: 2, name: 'Exercise'},
-        {id: 3, name: 'Yeeting'}
-      ]
+      groups: {
+        '1':{id: 1, name: 'Japanese'},
+        '2':{id: 2, name: 'Exercise'},
+        '3':{id: 3, name: 'Yeeting'}
+      }
     };
   }
 
@@ -24,10 +24,7 @@ class StatsPage extends React.Component {
   }
 
   getGroupName = id => {
-    let arrayIndex = this.state.groups.findIndex(group =>
-      group.id === id
-    )
-    return this.state.groups[arrayIndex]
+    return this.state.groups[id]
   }
 
   render() {

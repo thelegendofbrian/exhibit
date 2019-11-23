@@ -48,7 +48,7 @@ class CheckInButton extends React.Component {
   render() {
     const buttonNotCheckedIn = <Button content='Check-in!' onClick={this.checkIn} fluid />
     const buttonCheckedIn = (
-      <Segment secondary>
+      <Segment secondary textAlign='center'>
         <Icon name='checkmark' color='green' size='large' />
         Already checked in
       </Segment>

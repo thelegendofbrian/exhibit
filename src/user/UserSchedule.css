@@ -1,0 +1,25 @@
+.weeklyScheduleColumn.ui.grid .column {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.weeklyScheduleColumn .column {
+  margin-left: 4px;
+  margin-right: 4px;
+}
+
+.weeklyScheduleColumn .column:first-child {
+  margin-left: 14px;
+}
+
+.weeklyScheduleColumn .column:last-child {
+  margin-right: 14px;
+}
+
+.weeklyScheduleColumn .ui.segment {
+  text-align: center;
+}
+
+.weeklyScheduleColumn .column .weeklyScheduledDay {
+  background-color:lightgreen;
+}

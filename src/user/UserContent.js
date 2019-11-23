@@ -19,6 +19,28 @@ class UserContent extends React.Component {
       }
     };
   }
+
+  // componentDidMount() {
+  //   this.fetchUserStats()
+  // }
+
+  // fetchUserStats = () => {
+  //   fetch(`/checkin/${this.props.activeGroupId}/@me?pastDays=1`, {
+  //     method: 'GET'
+  //   }).then(resp => {
+  //     if (resp.ok) {
+  //       if (resp.status === 200) {
+  //         return resp.json();
+  //       }
+  //     } else {
+  //       alert('bad');
+  //     }
+  //   }).then(resp => {
+  //     if (resp) {
+  //       this.setState({ isCheckedIn: true });
+  //     }
+  //   });
+  // }
   
   render() {
     return (
