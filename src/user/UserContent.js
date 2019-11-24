@@ -10,7 +10,7 @@ class UserContent extends React.Component {
     super(props);
     this.state = {
       isCheckedIn: false,
-      stats: {
+      userStats: {
         dayStreak: {label: 'streak', value: '7', unit: ' days'},
         adherencePercent: {label: 'adherence', value: '89', unit: '%'},
         points: {label: 'points', value: '1337', unit: ''},
@@ -45,7 +45,7 @@ class UserContent extends React.Component {
   render() {
     return (
       <>
-        <UserSummary stats={this.state.stats} settings={this.props.settings} />
+        <UserSummary userStats={this.state.userStats} settings={this.props.settings} />
 
         <Grid columns='equal'>
           <Grid.Row>

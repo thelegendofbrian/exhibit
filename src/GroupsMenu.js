@@ -1,5 +1,6 @@
 import React from 'react';
-import { Menu, Button, Icon } from 'semantic-ui-react';
+import { Menu } from 'semantic-ui-react';
+import JoinGroupModal from './JoinGroupModal';
 
 class GroupsMenu extends React.Component {
   render() {
@@ -22,13 +23,7 @@ class GroupsMenu extends React.Component {
           </Menu.Menu>
         </Menu.Item>
         <Menu.Item>
-          <Button fluid size='tiny' basic>
-            <Icon.Group size='large'>
-              <Icon name='users' />
-              <Icon corner name='add' />
-            </Icon.Group>&nbsp;
-            Join group
-          </Button>
+          <JoinGroupModal />
         </Menu.Item>
       </Menu>
     )

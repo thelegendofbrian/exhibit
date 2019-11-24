@@ -10,7 +10,7 @@ class UserSummary extends React.Component {
 
   render() {
     const listStatBlocks = this.props.settings.userStatsToDisplay.map(stat =>
-      this.props.stats[stat]
+      this.props.userStats[stat]
     ).map(stat =>
         <GridColumn key={stat.label}>
           <StatBlock

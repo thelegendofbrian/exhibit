@@ -7,7 +7,8 @@ class UserSchedule extends React.Component {
     super(props);
     this.state = {
       scheduleType: 'weekly',
-      weeklySchedule: [2, 4, 7]
+      weeklySchedule: [2, 4, 7],
+      scheduleInterval: ''
     }
   }
 
@@ -17,7 +18,7 @@ class UserSchedule extends React.Component {
 
     switch (this.state.scheduleType) {
       case 'weekly':
-        let daysOfWeek = ['M', 'T', 'W', 'T', 'F', 'S', 'S']
+        let daysOfWeek = ['M', 'T', 'W', 'Th', 'F', 'S', 'S']
         let schedule = [{}, {}, {}, {}, {}, {}, {}]
         for (let i = 0; i < daysOfWeek.length; i++) {
           schedule[i].name = daysOfWeek[i];

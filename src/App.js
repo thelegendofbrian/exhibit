@@ -20,6 +20,8 @@ class App extends React.Component {
     };
   }
 
+  
+
   handleUserChange = (user) => {
     this.setState({user});
   }
@@ -58,7 +60,7 @@ class App extends React.Component {
             onPageChange={this.handlePageChange}
             onUserChange={this.handleUserChange}
             activePage={this.state.page}
-            settings={this.state.settings}
+            settings={this.props.settings}
           />
         )
       case 'login':

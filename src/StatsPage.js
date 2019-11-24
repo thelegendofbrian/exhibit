@@ -25,7 +25,7 @@ class StatsPage extends React.Component {
 
   getGroupName = id => {
     return this.state.groups[id]
-  }
+  }  
 
   render() {
     const isGroupStats = this.props.activePage === 'groupStats'
