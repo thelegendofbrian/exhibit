@@ -61,6 +61,7 @@ class App extends React.Component {
             onUserChange={this.handleUserChange}
             activePage={this.state.page}
             settings={this.props.settings}
+            groups={this.state.user.groups}
           />
         )
       case 'login':

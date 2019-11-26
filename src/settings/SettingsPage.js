@@ -52,7 +52,10 @@ class SettingsPage extends React.Component {
               </Menu>
             </Grid.Column>
             <Grid.Column>
-              <ListSettings page={this.state.menuPage} />
+              <ListSettings
+                page={this.state.menuPage}
+                groups={this.props.groups}
+              />
             </Grid.Column>
           </Grid>
         </Container>

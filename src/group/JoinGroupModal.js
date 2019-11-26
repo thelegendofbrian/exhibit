@@ -27,7 +27,7 @@ class JoinGroupModal extends React.Component {
     )
 
     let groupsList = this.state.groups.map(group =>
-      <Grid.Column>
+      <Grid.Column key={group.id}>
         <Segment style={{ minHeight: 150 }}>
           <Header as='h4' content={group.name} />
           <p align='left'>

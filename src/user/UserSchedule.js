@@ -18,7 +18,7 @@ class UserSchedule extends React.Component {
 
     switch (this.state.scheduleType) {
       case 'weekly':
-        let daysOfWeek = ['M', 'T', 'W', 'Th', 'F', 'S', 'S']
+        let daysOfWeek = ['M', 'T', 'W', 'Th', 'F', 'Sa', 'Su']
         let schedule = [{}, {}, {}, {}, {}, {}, {}]
         for (let i = 0; i < daysOfWeek.length; i++) {
           schedule[i].name = daysOfWeek[i];
@@ -28,7 +28,7 @@ class UserSchedule extends React.Component {
         }
         scheduleHeader = 'Weekly Schedule'
         scheduleContent = schedule.map(day =>
-          <GridColumn>
+          <GridColumn key={day.name}>
             <Segment className={day.class}>
               <Header as='h4' content={day.name} />
             </Segment>

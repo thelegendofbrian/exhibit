@@ -1,6 +1,6 @@
 import React from 'react';
 import { Menu } from 'semantic-ui-react';
-import JoinGroupModal from './JoinGroupModal';
+import JoinGroupModal from './group/JoinGroupModal';
 
 class GroupsMenu extends React.Component {
   render() {
