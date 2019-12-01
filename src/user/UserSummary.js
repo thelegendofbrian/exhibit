@@ -14,9 +14,7 @@ class UserSummary extends React.Component {
     ).map(stat =>
         <GridColumn key={stat.label}>
           <StatBlock
-            label={stat.label}
-            value={stat.value}
-            unit={stat.unit}
+            stat={stat}
           />
         </GridColumn>
     )

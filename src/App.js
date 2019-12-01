@@ -2,7 +2,7 @@ import React from 'react';
 import 'semantic-ui-css/semantic.min.css';
 import LoginPage from './LoginPage';
 import StatsPage from './StatsPage';
-import SettingsPage from './settings/SettingsPage';
+import SettingsPage from './SettingsPage';
 
 const defaultPage = 'userStats'
 
@@ -11,7 +11,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       user: {},
-      page: 'login',
+      activePage: 'login',
       settings: {
         userStatsToDisplay: [
           'dayStreak', 'adherencePercent', 'points'
@@ -20,26 +20,24 @@ class App extends React.Component {
     };
   }
 
-  
-
   handleUserChange = (user) => {
     this.setState({user});
   }
 
-  handlePageChange = (page) => {
-    this.setState({page});
+  handlePageChange = (activePage) => {
+    this.setState({activePage});
   }
 
   getPage = () => {
-    switch (this.state.page) {
+    switch (this.state.activePage) {
       case 'userStats':
         return (
           <StatsPage
             scope='user'
-            userName={this.state.user.name}
+            userName={this.state.user.userName}
             onPageChange={this.handlePageChange}
             onUserChange={this.handleUserChange}
-            activePage={this.state.page}
+            activePage={this.state.activePage}
             settings={this.state.settings}
           />
         )
@@ -50,25 +48,23 @@ class App extends React.Component {
             userName={this.state.user.name}
             onPageChange={this.handlePageChange}
             onUserChange={this.handleUserChange}
-            activePage={this.state.page}
+            activePage={this.state.activePage}
           />
         )
       case 'settings':
         return (
           <SettingsPage
-            userName={this.state.user.name}
+            activePage={this.state.activePage}
+            user={this.state.user}
             onPageChange={this.handlePageChange}
             onUserChange={this.handleUserChange}
-            activePage={this.state.page}
-            settings={this.props.settings}
-            groups={this.state.user.groups}
           />
         )
       case 'login':
       default:
         return (
           <LoginPage
-            onLogin={user => this.setState({ user, page: defaultPage })}
+            onLogin={user => this.setState({ user, activePage: defaultPage })}
             onPageChange={this.handlePageChange}
           />
         )
@@ -77,7 +73,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className={this.state.page}>
+      <div className={this.state.activePage}>
         {this.getPage()}
       </div>
     )

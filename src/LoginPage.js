@@ -35,7 +35,7 @@ class LoginPage extends React.Component {
       }
     }).then(resp => {
       if (resp) {
-        this.props.onLogin(resp.user);
+        this.props.onLogin(resp.userName);
       }
     });
   }

@@ -10,8 +10,8 @@ class StatBlock extends React.Component {
   render() {
     return (
       <Statistic size='tiny'>
-        <Statistic.Value>{this.props.value}{this.props.unit}</Statistic.Value>
-        <Statistic.Label>{this.props.label}</Statistic.Label>
+        <Statistic.Value>{this.props.stat.value}{this.props.stat.unit}</Statistic.Value>
+        <Statistic.Label>{this.props.stat.label}</Statistic.Label>
       </Statistic>
     )
   }

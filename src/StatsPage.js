@@ -60,7 +60,6 @@ class StatsPage extends React.Component {
           <Grid columns='equal'>
             <Grid.Column width='3'>
               <GroupsMenu
-                onPageChange={this.props.onPageChange}
                 onActiveGroupIdChange={this.handleActiveGroupIdChange}
                 groups={this.state.groups}
                 getGroupName={this.getGroupName}
