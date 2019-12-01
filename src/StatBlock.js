@@ -31,12 +31,21 @@ class StatBlock extends React.Component {
   }
 
   render() {
-    return (
+    let block = (
       <Statistic size='tiny'>
         <Statistic.Value>{this.props.stat.value}{statDescriptions[this.props.stat.name].unit}</Statistic.Value>
         <Statistic.Label>{statDescriptions[this.props.stat.name].label}</Statistic.Label>
       </Statistic>
     )
+
+    let noDataBlock = (
+      <Statistic size='tiny'>
+        <Statistic.Value>no data</Statistic.Value>
+        <Statistic.Label>{statDescriptions[this.props.stat.name].label}</Statistic.Label>
+      </Statistic>
+    )
+
+    return this.props.stat.value ? block : noDataBlock
   }
 }
 

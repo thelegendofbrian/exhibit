@@ -7,7 +7,7 @@ class UserSummary extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      userStats: {}
+      userStats: null
     }
   }
 
@@ -35,7 +35,7 @@ class UserSummary extends React.Component {
 
   render() {
     let listStatBlocks
-    if (this.state.userStats.dayStreak) {
+    if (this.state.userStats !== null) {
       listStatBlocks = this.props.userContentSettings.stats.map(stat => (
         <GridColumn key={stat}>
           <StatBlock

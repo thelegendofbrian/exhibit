@@ -48,7 +48,10 @@ class UserContent extends React.Component {
               <CheckInButton
                 activeGroup={this.props.activeGroup}
               />
-              <UserSchedule />
+              <UserSchedule
+                userContentSettings={this.state.userContentSettings}
+                activeGroup={this.props.activeGroup}
+              />
             </Grid.Column>
             <Grid.Column>
               <UserHeatmap />
