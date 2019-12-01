@@ -10,37 +10,42 @@ class CheckInButton extends React.Component {
     }
   }
 
-  componentDidMount() {
+  componentDidUpdate(prevProps) {
+    if (!this.props.activeGroup.id || prevProps.activeGroup.id === this.props.activeGroup.id) {
+      return
+    }
     this.updateCheckInStatus()
   }
 
   // Check if checked in already
   updateCheckInStatus = () => {
-    fetch(`/member/${this.props.activeGroupId}/checkin?pastDays=1`, {
+    fetch(`/member/${this.props.activeGroup.id}/checkin?pastDays=1`, {
       method: 'GET'
     }).then(resp => {
       if (resp.ok) {
         if (resp.status === 200) {
-          return resp.json();
+          return resp.json()
         }
       } else {
-        alert('bad');
+        alert('bad')
       }
     }).then(resp => {
       if (resp) {
         this.setState({ isCheckedIn: true });
+      } else {
+        this.setState({ isCheckedIn: false })
       }
-    });
+    })
   }
 
   checkIn = () => {
-    fetch(`/member/${this.props.activeGroupId}/checkin`, {
+    fetch(`/member/${this.props.activeGroup.id}/checkin`, {
       method: 'POST'
     }).then(resp => {
       if (resp.ok) {
-        this.setState({ isCheckedIn: true });
+        this.setState({ isCheckedIn: true })
       } else {
-        alert('bad');
+        alert('bad')
       }
     });
   }

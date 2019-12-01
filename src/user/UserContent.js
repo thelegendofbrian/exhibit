@@ -4,31 +4,50 @@ import UserHeatmap from './UserHeatmap';
 import UserSchedule from './UserSchedule';
 import UserSummary from './UserSummary';
 import { Grid } from 'semantic-ui-react';
+import fetch from '../fetchWrapper'
 
 class UserContent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isCheckedIn: false,
-      userStats: {
-        dayStreak: {label: 'streak', value: '7', unit: ' days'},
-        adherencePercent: {label: 'adherence', value: '89', unit: '%'},
-        points: {label: 'points', value: '1337', unit: ''},
-        bonusCheckIns: {label: 'bonus check-ins', value: '2', unit: ''},
-        totalCheckIns: {label: 'total check-ins', value: '32', unit: ''}
-      }
+      userContentSettings: {}
     };
+  }
+
+  componentDidMount() {
+    // Populate userContentSettings
+    fetch(`/member/${this.props.activeGroup.id}/settings/user`, {
+      method: 'GET'
+    }).then(resp => {
+      if (resp.ok) {
+        if (resp.status === 200) {
+          return resp.json()
+        }
+      } else {
+        alert('bad')
+      }
+    }).then(resp => {
+      if (resp) {
+        this.setState({userContentSettings: resp})
+      }
+    })
   }
   
   render() {
     return (
       <>
-        <UserSummary userStats={this.state.userStats} settings={this.props.settings} />
+        <UserSummary
+          userStats={this.state.userStats}
+          userContentSettings={this.state.userContentSettings}
+          activeGroup={this.props.activeGroup}
+        />
 
         <Grid columns='equal'>
           <Grid.Row>
             <Grid.Column>
-              <CheckInButton activeGroupId={this.props.activeGroupId} />
+              <CheckInButton
+                activeGroup={this.props.activeGroup}
+              />
               <UserSchedule />
             </Grid.Column>
             <Grid.Column>

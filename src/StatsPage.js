@@ -5,27 +5,38 @@ import GroupContent from './group/GroupContent';
 import UserContent from './user/UserContent';
 import { Container, Grid, Header, Icon } from 'semantic-ui-react';
 import './StatsPage.css'
+import fetch from './fetchWrapper'
 
 class StatsPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      activeGroupId: 1,
-      groups: {
-        '1':{id: 1, name: 'Japanese'},
-        '2':{id: 2, name: 'Exercise'},
-        '3':{id: 3, name: 'Yeeting'}
-      }
+      activeGroup: {}
     };
   }
 
-  handleActiveGroupIdChange = activeGroupId => {
-    this.setState({activeGroupId});
+  componentDidMount() {
+    // Populate groups
+    fetch(`/member/group`, {
+      method: 'GET'
+    }).then(resp => {
+      if (resp.ok) {
+        if (resp.status === 200) {
+          return resp.json()
+        }
+      } else {
+        alert('bad')
+      }
+    }).then(resp => {
+      if (resp) {
+        this.setState({
+          activeGroup: resp.groups.filter(group => group.id === resp.defaultGroupId)[0]
+        })
+      }
+    })
   }
 
-  getGroupName = id => {
-    return this.state.groups[id]
-  }  
+  handleActiveGroupChange = activeGroup => this.setState({activeGroup})
 
   render() {
     const isGroupStats = this.props.activePage === 'groupStats'
@@ -42,9 +53,7 @@ class StatsPage extends React.Component {
     } else {
       content = (
         <UserContent
-          activeGroupId={this.state.activeGroupId}
-          groups={this.state.groups}
-          settings={this.props.settings}
+          activeGroup={this.state.activeGroup}
         />
       )
     }
@@ -52,18 +61,16 @@ class StatsPage extends React.Component {
     return (
       <>
         <MainMenu
+          activePage={this.props.activePage}
           onPageChange={this.props.onPageChange}
           onUserChange={this.props.onUserChange}
-          activePage={this.props.activePage}
         />
         <Container className='statsPageContainer'>
           <Grid columns='equal'>
             <Grid.Column width='3'>
               <GroupsMenu
-                onActiveGroupIdChange={this.handleActiveGroupIdChange}
-                groups={this.state.groups}
-                getGroupName={this.getGroupName}
-                activeGroupId={this.state.activeGroupId}
+                activeGroup={this.state.activeGroup}
+                onActiveGroupChange={this.handleActiveGroupChange}
               />
             </Grid.Column>
             <Grid.Column>

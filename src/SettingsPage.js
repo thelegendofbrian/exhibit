@@ -68,7 +68,7 @@ class SettingsPage extends React.Component {
       defaultGroupId: '',
       timeZone: '',
       settingsSubmitStatus: 0,
-      passwordSubmitStatus: 0,
+      passwordSubmitStatus: 0
     }
   }
 

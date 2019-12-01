@@ -1,18 +1,59 @@
 import React from 'react';
-import { Modal, Button, Icon, Header, Search, Container, Grid, Segment } from 'semantic-ui-react';
+import { Modal, Button, Icon, Header, Container, Grid, Segment, Input } from 'semantic-ui-react';
+import fetch from '../fetchWrapper'
+
+const searchDelay = 750
 
 class JoinGroupModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      joinedGroups: [1, 2],
-      groups: [
-        {id: 1, name: 'Japanese', desc: 'Blah blah blah1', isPrivate: 'false'},
-        {id: 2, name: 'Exercise', desc: 'Blah blah blah2', isPrivate: 'false'},
-        {id: 3, name: 'Yeeting', desc: 'Blah blah blah3', isPrivate: 'false'},
-        {id: 4, name: 'Neeting', desc: 'Blah blah blah4', isPrivate: 'true'}
-      ]
+      groups: [],
+      contains: '',
+      page: 1,
+      pageSize: 10,
+      nonmemberOnly: false
     }
+  }
+
+  componentDidMount() {
+    this.fetchGroups()
+  }
+
+  handleContainsChange = (e, {value}) => {
+    this.setState({contains: value})
+    this.delaySearchQuery()
+  }
+  handlePageChange = (e, {value}) => this.setState({page: value})
+  handlePageSizeChange = (e, {value}) => this.setState({pageSize: value})
+  handleNonmemberOnlyChange = (e, {value}) => this.setState({nonmemberOnly: value})
+
+  delaySearchQuery = () => {
+    if (this.timeout) {
+      clearTimeout(this.timeout);
+    }
+    this.timeout = setTimeout(() => {
+      this.fetchGroups()
+    }, searchDelay);
+  }
+
+  fetchGroups = () => {
+    // Populate groups
+    fetch(`/group?contains=${this.state.contains}&page=${this.state.page}&pageSize=${this.state.pageSize}&nonmemberOnly=${this.state.nonmemberOnly}`, {
+      method: 'GET'
+    }).then(resp => {
+      if (resp.ok) {
+        if (resp.status === 200) {
+          return resp.json()
+        }
+      } else {
+        alert('bad');
+      }
+    }).then(resp => {
+      if (resp) {
+        this.setState({groups: resp})
+      }
+    })
   }
 
   render() {
@@ -49,7 +90,12 @@ class JoinGroupModal extends React.Component {
         </Header>
         <Modal.Content>
           <Container textAlign='center'>
-            <Search fluid /><br />
+            <Input
+              icon='search'
+              placeholder='Search...'
+              fluid
+              onChange={this.handleContainsChange}
+            /><br />
             <Grid columns='3' stackable>
               {groupsList}
             </Grid>

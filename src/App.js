@@ -10,45 +10,36 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: {},
       activePage: 'login',
-      settings: {
-        userStatsToDisplay: [
-          'dayStreak', 'adherencePercent', 'points'
-        ]
-      }
+      user: {},
+      theme: 'light',
     };
   }
 
-  handleUserChange = (user) => {
-    this.setState({user});
-  }
-
-  handlePageChange = (activePage) => {
-    this.setState({activePage});
-  }
+  handleUserChange = user => this.setState({user})
+  handlePageChange = activePage => this.setState({activePage})
+  handleLogin = user => this.setState({ user, activePage: defaultPage })
 
   getPage = () => {
     switch (this.state.activePage) {
       case 'userStats':
         return (
           <StatsPage
+            activePage={this.state.activePage}
             scope='user'
-            userName={this.state.user.userName}
+            user={this.state.user}
             onPageChange={this.handlePageChange}
             onUserChange={this.handleUserChange}
-            activePage={this.state.activePage}
-            settings={this.state.settings}
           />
         )
       case 'groupStats':
         return (
           <StatsPage
+            activePage={this.state.activePage}
             scope='group'
-            userName={this.state.user.name}
+            user={this.state.user}
             onPageChange={this.handlePageChange}
             onUserChange={this.handleUserChange}
-            activePage={this.state.activePage}
           />
         )
       case 'settings':
@@ -64,7 +55,7 @@ class App extends React.Component {
       default:
         return (
           <LoginPage
-            onLogin={user => this.setState({ user, activePage: defaultPage })}
+            onLogin={this.handleLogin}
             onPageChange={this.handlePageChange}
           />
         )
