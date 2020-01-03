@@ -1,5 +1,5 @@
 import React from 'react';
-import { Header, Segment, Grid, GridColumn, Button, Icon } from 'semantic-ui-react';
+import { Header, Segment, Grid, GridColumn, Button } from 'semantic-ui-react';
 import './UserSchedule.css'
 import fetch from '../fetchWrapper'
 

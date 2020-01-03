@@ -223,7 +223,7 @@ class SettingsPage extends React.Component {
                 label='Monday'
                 name='monday'
                 value='1'
-                checked={this.state.startOfWeek === '1'}
+                checked={this.state.startOfWeek == 1}
                 onChange={this.handleStartOfWeekChange}
               />
             </Form.Field>
@@ -232,7 +232,7 @@ class SettingsPage extends React.Component {
                 label='Sunday'
                 name='sunday'
                 value='7'
-                checked={this.state.startOfWeek === '7'}
+                checked={this.state.startOfWeek == 7}
                 onChange={this.handleStartOfWeekChange}
               />
             </Form.Field>

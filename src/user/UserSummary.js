@@ -36,7 +36,6 @@ class UserSummary extends React.Component {
   render() {
     let listStatBlocks
     if (this.state.userStats !== null && this.props.userContentSettings !== null) {
-      debugger;
       listStatBlocks = this.props.userContentSettings.stats.map(stat => (
         <GridColumn key={stat}>
           <StatBlock
