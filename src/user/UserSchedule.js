@@ -1,5 +1,5 @@
 import React from 'react';
-import { Header, Segment, Grid, GridColumn } from 'semantic-ui-react';
+import { Header, Segment, Grid, GridColumn, Button, Icon } from 'semantic-ui-react';
 import './UserSchedule.css'
 import fetch from '../fetchWrapper'
 
@@ -68,6 +68,7 @@ class UserSchedule extends React.Component {
           scheduleHeader = 'No Schedule'
         break;
       default:
+          scheduleHeader = 'Schedule'
         break;
     }
 
@@ -77,6 +78,11 @@ class UserSchedule extends React.Component {
       <>
         <Header as='h3' block attached='top'>
           {scheduleHeader}
+          <Button
+            floated='right'
+            icon='setting'
+            style={{backgroundColor: 'transparent', marginRight: 0}}
+          />
         </Header>
         <Segment attached='bottom'>
           {scheduleContent}

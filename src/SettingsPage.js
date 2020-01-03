@@ -1,6 +1,6 @@
 import React from 'react';
 import MainMenu from './MainMenu'
-import { Icon, Header, Container, Form, Input, Dropdown, Button, Divider, Message } from 'semantic-ui-react';
+import { Icon, Header, Container, Form, Input, Dropdown, Button, Divider, Message, Radio } from 'semantic-ui-react';
 import fetch from './fetchWrapper'
 
 const timeZoneOptions = [
@@ -67,6 +67,7 @@ class SettingsPage extends React.Component {
       displayName: '',
       defaultGroupId: '',
       timeZone: '',
+      startOfWeek: '',
       settingsSubmitStatus: 0,
       passwordSubmitStatus: 0
     }
@@ -89,7 +90,8 @@ class SettingsPage extends React.Component {
         this.setState({
           displayName: resp.displayName,
           defaultGroupId: resp.defaultGroupId,
-          timeZone: resp.timeZone
+          timeZone: resp.timeZone,
+          startOfWeek: resp.startOfWeek
         })
       }
     })
@@ -115,6 +117,7 @@ class SettingsPage extends React.Component {
   handleDisplayNameChange = (e, {value}) => this.setState({displayName: value})
   handleDefaultGroupIdChange = (e, {value}) => this.setState({defaultGroupId: value})
   handleTimeZoneChange = (e, {value}) => this.setState({timeZone: value})
+  handleStartOfWeekChange = (e, {value}) => this.setState({startOfWeek: value})
 
   handlePassword1Change = (e, {value}) => this.setState({password1: value})
   handlePassword2Change = (e, {value}) => this.setState({password2: value})
@@ -123,7 +126,8 @@ class SettingsPage extends React.Component {
     let settings = {
       timeZone: this.state.timeZone,
 	    defaultGroupId: this.state.defaultGroupId,
-	    displayName: this.state.displayName
+      displayName: this.state.displayName,
+      startOfWeek: this.state.startOfWeek
     }
 
     fetch(`/user/settings`, {
@@ -211,6 +215,25 @@ class SettingsPage extends React.Component {
                 style={{maxWidth: 400}}
                 value={this.state.defaultGroupId}
                 onChange={this.handleDefaultGroupIdChange}
+              />
+            </Form.Field>
+            <Form.Field style={{marginBottom: 7}}>
+              <label>Week start day</label>
+              <Radio
+                label='Monday'
+                name='monday'
+                value='1'
+                checked={this.state.startOfWeek === '1'}
+                onChange={this.handleStartOfWeekChange}
+              />
+            </Form.Field>
+            <Form.Field>
+              <Radio
+                label='Sunday'
+                name='sunday'
+                value='7'
+                checked={this.state.startOfWeek === '7'}
+                onChange={this.handleStartOfWeekChange}
               />
             </Form.Field>
             <Button type='submit' content='Apply settings' primary />

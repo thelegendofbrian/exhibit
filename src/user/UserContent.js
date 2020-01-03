@@ -10,11 +10,14 @@ class UserContent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      userContentSettings: {}
+      userContentSettings: null
     };
   }
 
-  componentDidMount() {
+  componentDidUpdate(prevProps) {
+    if (!this.props.activeGroup.id || prevProps.activeGroup.id === this.props.activeGroup.id) {
+      return
+    }
     // Populate userContentSettings
     fetch(`/member/${this.props.activeGroup.id}/settings/user`, {
       method: 'GET'

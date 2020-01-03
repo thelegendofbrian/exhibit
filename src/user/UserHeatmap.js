@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table, Icon, Header, Segment } from 'semantic-ui-react';
+import { Table, Icon, Header, Segment, Button } from 'semantic-ui-react';
 
 class UserHeatmap extends React.Component {
   constructor(props) {

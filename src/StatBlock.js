@@ -10,7 +10,7 @@ const statDescriptions = {
     label: 'adherence',
     unit: '%'
   },
-  poitns: {
+  points: {
     label: 'points',
     unit: ''
   },
@@ -31,6 +31,8 @@ class StatBlock extends React.Component {
   }
 
   render() {
+
+
     let block = (
       <Statistic size='tiny'>
         <Statistic.Value>{this.props.stat.value}{statDescriptions[this.props.stat.name].unit}</Statistic.Value>

@@ -1,6 +1,6 @@
 import React from 'react';
 import StatBlock from '../StatBlock'
-import { Segment, Grid, GridColumn, Header } from 'semantic-ui-react';
+import { Segment, Grid, GridColumn, Header, Button } from 'semantic-ui-react';
 import fetch from '../fetchWrapper'
 
 class UserSummary extends React.Component {
@@ -35,7 +35,8 @@ class UserSummary extends React.Component {
 
   render() {
     let listStatBlocks
-    if (this.state.userStats !== null) {
+    if (this.state.userStats !== null && this.props.userContentSettings !== null) {
+      debugger;
       listStatBlocks = this.props.userContentSettings.stats.map(stat => (
         <GridColumn key={stat}>
           <StatBlock
@@ -49,6 +50,11 @@ class UserSummary extends React.Component {
       <>
         <Header as='h3' block attached='top'>
           Summary
+          <Button
+            floated='right'
+            icon='setting'
+            style={{backgroundColor: 'transparent', marginRight: 0}}
+          />
         </Header>
         <Segment attached='bottom'>
           <Grid columns='equal' textAlign='center'>
