@@ -8,7 +8,6 @@ import fetch from '../fetchWrapper'
 
 class UserContent extends React.Component {
   constructor(props) {
-    console.log("UserContent is getting constructed.")
     super(props);
     this.state = {
       userContentSettings: null

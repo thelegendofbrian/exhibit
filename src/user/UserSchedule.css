@@ -23,3 +23,7 @@
 .weeklyScheduleColumn .column .weeklyScheduledDay {
   background-color:lightgreen;
 }
+
+.weeklyScheduleColumn .column button {
+  width: 100%;
+}
