@@ -8,6 +8,7 @@ import fetch from '../fetchWrapper'
 
 class UserContent extends React.Component {
   constructor(props) {
+    console.log("UserContent is getting constructed.")
     super(props);
     this.state = {
       userContentSettings: null
@@ -15,10 +16,21 @@ class UserContent extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (!this.props.activeGroup.id || prevProps.activeGroup.id === this.props.activeGroup.id) {
-      return
+    if (this.props.activeGroup.id && prevProps.activeGroup.id !== this.props.activeGroup.id) {
+      this.getContentSettings()
     }
-    // Populate userContentSettings
+  }
+
+  componentDidMount() {
+    if (this.props.activeGroup.id) {
+      this.getContentSettings()
+    }
+  }
+
+  /**
+   * Populate userContentSettings
+   */
+  getContentSettings = () => {
     fetch(`/member/${this.props.activeGroup.id}/settings/user`, {
       method: 'GET'
     }).then(resp => {

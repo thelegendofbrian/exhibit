@@ -12,10 +12,21 @@ class UserSchedule extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (!this.props.activeGroup.id || prevProps.activeGroup.id === this.props.activeGroup.id) {
-      return
+    if (this.props.activeGroup.id && prevProps.activeGroup.id !== this.props.activeGroup.id) {
+      this.getSchedule()
     }
-    // Populate schedule
+  }
+
+  componentDidMount() {
+    if (this.props.activeGroup.id) {
+      this.getSchedule()
+    }
+  }
+
+  /**
+   * Populate schedule
+   */
+  getSchedule = () => {
     fetch(`/member/${this.props.activeGroup.id}/schedule/projection`, {
       method: 'GET'
     }).then(resp => {

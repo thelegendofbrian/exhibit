@@ -47,7 +47,7 @@ class StatBlock extends React.Component {
       </Statistic>
     )
 
-    return this.props.stat.value ? block : noDataBlock
+    return this.props.stat.value !== null ? block : noDataBlock
   }
 }
 

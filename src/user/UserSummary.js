@@ -12,10 +12,21 @@ class UserSummary extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (!this.props.activeGroup.id || prevProps.activeGroup.id === this.props.activeGroup.id) {
-      return
+    if (this.props.activeGroup.id && prevProps.activeGroup.id !== this.props.activeGroup.id) {
+      this.getUserStats()
     }
-    // Populate userStats
+  }
+
+  componentDidMount() {
+    if (this.props.activeGroup.id) {
+      this.getUserStats()
+    }
+  }
+
+  /**
+   * Populate userStats
+   */
+  getUserStats = () => {
     fetch(`/member/${this.props.activeGroup.id}/statistics`, {
       method: 'GET'
     }).then(resp => {
@@ -32,6 +43,7 @@ class UserSummary extends React.Component {
       }
     })
   }
+    
 
   render() {
     let listStatBlocks
