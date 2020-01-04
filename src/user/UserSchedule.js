@@ -47,22 +47,17 @@ class UserSchedule extends React.Component {
 
   toggleEditSchedule = () => this.setState({ editSchedule: !this.state.editSchedule })
 
-  toggleScheduleDay = (e) => {
-    let daysOfWeek = ['M', 'T', 'W', 'Th', 'F', 'Sa', 'Su']
-    let tempScheduleDays = []
-    for (let i = 0; i < daysOfWeek.length; i++) {
-      // If button pressed corresponds to current day of week in loop
-      if (e.target.innerText === daysOfWeek[i]) {
-        if (!this.state.scheduleDays.includes(i+1)) {
-          tempScheduleDays.push(i+1)
-        }
+  toggleScheduleDay = (e, id) => {
+    this.setState((state, props) => {
+      let scheduleDays = state.scheduleDays.slice()
+      let idx = state.scheduleDays.indexOf(id)
+      if (idx === -1) {
+        scheduleDays.push(id)
       } else {
-        if (this.state.scheduleDays.includes(i+1)) {
-          tempScheduleDays.push(i+1)
-        }
+        scheduleDays.splice(idx, 1)
       }
-    }
-    this.setState({scheduleDays: tempScheduleDays})
+      return { scheduleDays }
+    });
   }
 
   setSchedule = () => {
@@ -71,14 +66,13 @@ class UserSchedule extends React.Component {
       type: this.state.scheduleTypeDropdown,
       days: this.state.scheduleDays
     }
-    this.setState({schedule: tempSchedule})
     fetch(`/member/${this.props.activeGroup.id}/schedule`, {
       method: 'POST',
       body: JSON.stringify(tempSchedule),
       headers: {'content-type': 'application/json'}
     }).then(resp => {
       if (resp.ok) {
-        this.setState({ editSchedule: false })
+        this.setState({ schedule: tempSchedule, editSchedule: false })
       } else {
         alert('Error setting schedule')
       }
@@ -110,13 +104,13 @@ class UserSchedule extends React.Component {
     switch (this.state.schedule.type) {
       case 'weekly':
         let daysOfWeek = ['M', 'T', 'W', 'Th', 'F', 'Sa', 'Su']
-        let schedule = [{}, {}, {}, {}, {}, {}, {}]
-        for (let i = 0; i < daysOfWeek.length; i++) {
-          schedule[i].name = daysOfWeek[i];
-          if (this.state.schedule.days.includes(i + 1)) {
-            schedule[i].class = 'weeklyScheduledDay'
-          }
-        }
+        let schedule = []
+        daysOfWeek.forEach((day, i) => {
+          schedule.push({
+            name: day,
+            class: this.state.schedule.days.includes(i + 1) ? 'weeklyScheduledDay' : null
+          })
+        })
         scheduleHeader = 'Weekly Schedule'
         scheduleContent = schedule.map(day =>
           <GridColumn key={day.name}>
@@ -131,19 +125,20 @@ class UserSchedule extends React.Component {
           </Grid>
         )
 
+        schedule = []
         // Editable schedule content
-        schedule = [{}, {}, {}, {}, {}, {}, {}]
-        for (let i = 0; i < daysOfWeek.length; i++) {
-          schedule[i].name = daysOfWeek[i];
-          if (this.state.scheduleDays.includes(i + 1)) {
-            schedule[i].class = 'weeklyScheduledDay'
-          }
-        }
+        daysOfWeek.forEach((day, i) => {
+          schedule.push({
+            name: day,
+            id: i + 1,
+            class: this.state.scheduleDays.includes(i + 1) ? 'weeklyScheduledDay' : null
+          })
+        })
         editableScheduleContent = schedule.map(day =>
           <GridColumn key={'editable-' + day.name}>
-            <Segment fluid as='button'
+            <Segment as='button'
               className={day.class}
-              onClick={this.toggleScheduleDay}
+              onClick={e => this.toggleScheduleDay(e, day.id)}
             >
               <Header as='h4' content={day.name}/>
             </Segment>
