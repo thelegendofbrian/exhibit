@@ -8,6 +8,7 @@ class UserSchedule extends React.Component {
     super(props);
     this.state = {
       schedule: {},
+      scheduleDays: [],
       editSchedule: false
     }
   }
@@ -28,7 +29,7 @@ class UserSchedule extends React.Component {
    * Populate schedule
    */
   getSchedule = () => {
-    fetch(`/member/${this.props.activeGroup.id}/schedule/projection`, {
+    fetch(`/member/${this.props.activeGroup.id}/schedule`, {
       method: 'GET'
     }).then(resp => {
       if (resp.ok) {
@@ -40,7 +41,7 @@ class UserSchedule extends React.Component {
       }
     }).then(resp => {
       if (resp) {
-        this.setState({ schedule: resp, scheduleTypeDropdown: resp.type, scheduleDays: resp.days })
+        this.setState({ schedule: resp, scheduleTypeDropdown: resp.type, scheduleDays: resp.days || [] })
       }
     })
   }
@@ -61,8 +62,10 @@ class UserSchedule extends React.Component {
   }
 
   setSchedule = () => {
+    let date = new Date()
+    let dateString = (date.getFullYear() + '-' + ('0' + (date.getMonth()+1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2))
     let tempSchedule = {
-      startDate: new Date().toISOString().substring(0, 10),
+      startDate: dateString,
       type: this.state.scheduleTypeDropdown,
       days: this.state.scheduleDays
     }
@@ -101,14 +104,14 @@ class UserSchedule extends React.Component {
       },
     ]
 
-    switch (this.state.schedule.type) {
+    switch (this.state.scheduleTypeDropdown || this.state.schedule.type) {
       case 'weekly':
         let daysOfWeek = ['M', 'T', 'W', 'Th', 'F', 'Sa', 'Su']
         let schedule = []
         daysOfWeek.forEach((day, i) => {
           schedule.push({
             name: day,
-            class: this.state.schedule.days.includes(i + 1) ? 'weeklyScheduledDay' : null
+            class: this.state.schedule.days && this.state.schedule.days.includes(i + 1) ? 'weeklyScheduledDay' : null
           })
         })
         scheduleHeader = 'Weekly Schedule'
