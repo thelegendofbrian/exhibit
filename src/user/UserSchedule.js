@@ -47,7 +47,7 @@ class UserSchedule extends React.Component {
 
   toggleEditSchedule = () => this.setState({ editSchedule: !this.state.editSchedule })
 
-  toggleScheduleDay = (e, id) => {
+  toggleScheduleDay = (e, a, id) => {
     this.setState((state, props) => {
       let scheduleDays = state.scheduleDays.slice()
       let idx = state.scheduleDays.indexOf(id)
@@ -138,7 +138,7 @@ class UserSchedule extends React.Component {
           <GridColumn key={'editable-' + day.name}>
             <Segment as='button'
               className={day.class}
-              onClick={e => this.toggleScheduleDay(e, day.id)}
+              onClick={(e, a) => this.toggleScheduleDay(e, a, day.id)}
             >
               <Header as='h4' content={day.name}/>
             </Segment>

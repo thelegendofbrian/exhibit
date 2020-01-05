@@ -12,7 +12,11 @@ class GroupsMenu extends React.Component {
   }
 
   componentDidMount() {
-    // Populate groups
+    this.fetchGroups()
+  }
+
+  // Populate groups
+  fetchGroups = () => {
     fetch(`/member/group`, {
       method: 'GET'
     }).then(resp => {
@@ -30,14 +34,19 @@ class GroupsMenu extends React.Component {
     })
   }
 
+  handleGroupJoined = group => {
+    this.fetchGroups()
+    this.props.onActiveGroupChange(group)
+  }
+
   render() {
-    let listMenuItems = this.state.groups.map((group) => {
+    let listMenuItems = this.state.groups.map(group => {
       return (
         <Menu.Item
           key={group.id}
           name={group.name}
           active={group.id === this.props.activeGroup.id}
-          onClick={() => this.props.onActiveGroupChange({id: group.id, name: group.name})}
+          onClick={() => this.props.onActiveGroupChange(group)}
         />
       )
     })
@@ -51,7 +60,7 @@ class GroupsMenu extends React.Component {
           </Menu.Menu>
         </Menu.Item>
         <Menu.Item>
-          <JoinGroupModal />
+          <JoinGroupModal onGroupJoined={this.handleGroupJoined} />
         </Menu.Item>
       </Menu>
     )

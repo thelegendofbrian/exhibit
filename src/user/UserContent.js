@@ -3,7 +3,7 @@ import CheckInButton from './CheckInButton';
 import UserHeatmap from './UserHeatmap';
 import UserSchedule from './UserSchedule';
 import UserSummary from './UserSummary';
-import { Grid } from 'semantic-ui-react';
+import { Grid, Message } from 'semantic-ui-react';
 import fetch from '../fetchWrapper'
 
 class UserContent extends React.Component {
@@ -15,13 +15,15 @@ class UserContent extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.activeGroup.id && prevProps.activeGroup.id !== this.props.activeGroup.id) {
+    const activeGroupId = this.props.activeGroup && this.props.activeGroup.id
+    const prevActiveGroupId = prevProps.activeGroup && prevProps.activeGroup.id
+    if (activeGroupId !== prevActiveGroupId) {
       this.getContentSettings()
     }
   }
 
   componentDidMount() {
-    if (this.props.activeGroup.id) {
+    if (this.props.activeGroup && this.props.activeGroup.id) {
       this.getContentSettings()
     }
   }
@@ -48,6 +50,13 @@ class UserContent extends React.Component {
   }
   
   render() {
+    if (!this.props.activeGroup) {
+      return (
+        <Message>
+          It looks like you have not joined any groups.
+        </Message>
+      )
+    }
     return (
       <>
         <UserSummary

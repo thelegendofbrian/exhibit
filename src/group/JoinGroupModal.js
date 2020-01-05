@@ -1,18 +1,16 @@
-import React from 'react';
-import { Modal, Button, Icon, Header, Container, Grid, Segment, Input } from 'semantic-ui-react';
+import React from 'react'
+import { Modal, Button, Icon, Header, Container, Grid, Segment, Input } from 'semantic-ui-react'
 import fetch from '../fetchWrapper'
 
 const searchDelay = 750
 
 class JoinGroupModal extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       groups: [],
       contains: '',
-      page: 1,
-      pageSize: 10,
-      nonmemberOnly: false
+      page: 1
     }
   }
 
@@ -25,21 +23,32 @@ class JoinGroupModal extends React.Component {
     this.delaySearchQuery()
   }
   handlePageChange = (e, {value}) => this.setState({page: value})
-  handlePageSizeChange = (e, {value}) => this.setState({pageSize: value})
-  handleNonmemberOnlyChange = (e, {value}) => this.setState({nonmemberOnly: value})
+
+  handleClickJoin = (e, group) => {
+    fetch(`/member/${group.id}`, {
+      method: 'POST'
+    }).then(resp => {
+      if (resp.ok) {
+        this.fetchGroups()
+        this.props.onGroupJoined(group)
+      } else {
+        alert('bad')
+      }
+    })
+  }
 
   delaySearchQuery = () => {
     if (this.timeout) {
-      clearTimeout(this.timeout);
+      clearTimeout(this.timeout)
     }
     this.timeout = setTimeout(() => {
       this.fetchGroups()
-    }, searchDelay);
+    }, searchDelay)
   }
 
   fetchGroups = () => {
     // Populate groups
-    fetch(`/group?contains=${this.state.contains}&page=${this.state.page}&pageSize=${this.state.pageSize}&nonmemberOnly=${this.state.nonmemberOnly}`, {
+    fetch(`/group?contains=${this.state.contains}&page=${this.state.page}&pageSize=10&nonmemberOnly=true`, {
       method: 'GET'
     }).then(resp => {
       if (resp.ok) {
@@ -47,7 +56,7 @@ class JoinGroupModal extends React.Component {
           return resp.json()
         }
       } else {
-        alert('bad');
+        alert('bad')
       }
     }).then(resp => {
       if (resp) {
@@ -74,7 +83,7 @@ class JoinGroupModal extends React.Component {
           <p align='left'>
             {group.desc}
           </p><br />
-          <Button content='Join' fluid />
+          <Button content='Join' fluid onClick={e => this.handleClickJoin(e, group)} />
         </Segment>
       </Grid.Column>
     )
@@ -95,6 +104,7 @@ class JoinGroupModal extends React.Component {
               placeholder='Search...'
               fluid
               onChange={this.handleContainsChange}
+              defaultValue={this.state.contains}
             /><br />
             <Grid columns='3' stackable>
               {groupsList}
@@ -111,4 +121,4 @@ class JoinGroupModal extends React.Component {
   }
 }
 
-export default JoinGroupModal;
+export default JoinGroupModal
