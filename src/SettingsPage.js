@@ -125,7 +125,7 @@ class SettingsPage extends React.Component {
   applySettings = () => {
     let settings = {
       timeZone: this.state.timeZone,
-	    defaultGroupId: this.state.defaultGroupId,
+      defaultGroupId: this.state.defaultGroupId,
       displayName: this.state.displayName,
       startOfWeek: this.state.startOfWeek
     }
