@@ -193,7 +193,7 @@ class SettingsPage extends React.Component {
               <Input fluid
                 placeholder='Enter a display name'
                 style={{maxWidth: 400}}
-                value={this.state.displayName}
+                defaultValue={this.state.displayName}
                 onChange={this.handleDisplayNameChange}
               />
             </Form.Field>
