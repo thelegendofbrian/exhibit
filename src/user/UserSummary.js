@@ -51,7 +51,7 @@ class UserSummary extends React.Component {
       listStatBlocks = this.props.userContentSettings.stats.map(stat => (
         <GridColumn key={stat}>
           <StatBlock
-            stat={{name: stat, value: this.state.userStats[stat]}}
+            stat={{ name: stat, value: (stat === 'adherence' && this.state.userStats[stat] ? Math.round(this.state.userStats[stat] * 100) : this.state.userStats[stat]) }}
           />
         </GridColumn>
       ))
