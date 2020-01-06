@@ -5,6 +5,7 @@ import UserSchedule from './UserSchedule';
 import UserSummary from './UserSummary';
 import { Grid, Message } from 'semantic-ui-react';
 import fetch from '../fetchWrapper'
+import UserGoals from './UserGoals';
 
 class UserContent extends React.Component {
   constructor(props) {
@@ -73,6 +74,9 @@ class UserContent extends React.Component {
               />
               <UserSchedule
                 userContentSettings={this.state.userContentSettings}
+                activeGroup={this.props.activeGroup}
+              />
+              <UserGoals
                 activeGroup={this.props.activeGroup}
               />
             </Grid.Column>
