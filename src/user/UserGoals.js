@@ -34,6 +34,8 @@ class UserGoals extends React.Component {
       if (resp.ok) {
         if (resp.status === 200) {
           return resp.text()
+        } else {
+          this.setState({ goals: '', newGoals: '' })
         }
       } else {
         alert('bad')
