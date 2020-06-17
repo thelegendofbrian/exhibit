@@ -1,6 +1,7 @@
 import React from 'react';
 import { Menu } from 'semantic-ui-react';
 import JoinGroupModal from './group/JoinGroupModal';
+import CreateGroupModal from './group/CreateGroupModal';
 import fetch from './fetchWrapper'
 
 class GroupsMenu extends React.Component {
@@ -60,7 +61,10 @@ class GroupsMenu extends React.Component {
           </Menu.Menu>
         </Menu.Item>
         <Menu.Item>
-          <JoinGroupModal onGroupJoined={this.handleGroupJoined} />
+          <Menu.Menu style={{marginTop: 0}}>
+            <Menu.Item><JoinGroupModal onGroupJoined={this.handleGroupJoined} /></Menu.Item>
+            <Menu.Item><CreateGroupModal onGroupJoined={this.handleGroupJoined} /></Menu.Item>
+          </Menu.Menu>
         </Menu.Item>
       </Menu>
     )
